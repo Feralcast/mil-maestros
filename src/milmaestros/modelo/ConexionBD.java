@@ -18,7 +18,7 @@ public class ConexionBD
     private static final Logger LOG = Logger.getLogger(ConexionBD.class.getName());
     
     static final String JDBC_DRIVER = "com.mysql.cj.jdbc.Driver";  
-    static final String DB_URL = "jdbc:mysql://localhost/mil_maestros?useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=America/Santiago";
+    static final String DB_URL = "jdbc:mysql://localhost/mil_maestros?useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=America/Santiago?useServerPrepStmts=true";
 
     static final String USERNAME = "root";
     static final String PASSWORD = "";
@@ -48,5 +48,9 @@ public class ConexionBD
     public ResultSet ejecutarConsulta(String sql) throws SQLException
     {
         return crearSentencia().executeQuery(sql);
+    }
+
+    public PreparedStatement prepareStatement(String insert_into_clientenombre_apellidoPaterno) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 }

@@ -11,7 +11,11 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
@@ -19,7 +23,9 @@ import javax.swing.JFrame;
 import static javax.swing.JFrame.EXIT_ON_CLOSE;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
+import javax.swing.JPasswordField;
 import javax.swing.JTextField;
+import milmaestros.modelo.ConexionBD;
 
 /**
  *
@@ -27,6 +33,8 @@ import javax.swing.JTextField;
  */
 public class RegistroMaestros extends JFrame implements ActionListener
 {
+    ConexionBD conn = new ConexionBD();
+    
     private JTextField cajaTextoNombre = new JTextField();
     private JTextField cajaTextoApellidoPaterno = new JTextField();
     private JTextField cajaTextoApellidoMaterno = new JTextField();
@@ -38,7 +46,7 @@ public class RegistroMaestros extends JFrame implements ActionListener
     private JTextField cajaTextoTelefono = new JTextField();
     private JTextField cajaTextoEmail = new JTextField();
     private JTextField cajaTextoUsername = new JTextField();
-    private JTextField cajaTextoPassword = new JTextField();
+    private JPasswordField cajaTextoPassword = new JPasswordField();
     private JTextField cajaOtro = new JTextField();
     
     private JButton aceptar = new JButton("Aceptar");
@@ -790,10 +798,28 @@ public class RegistroMaestros extends JFrame implements ActionListener
         
         if(comando.equals("Aceptar"))
         {
-            String texto = cajaTextoNombre.getText();
-            String aceptar = "¡Datos guardados exitosamente!";
-            etiqueta.setText(aceptar);
-            JOptionPane.showMessageDialog(null, aceptar);
+            try {
+                PreparedStatement ps = conn.prepareStatement("INSERT INTO cliente(nombre, apellidoPaterno, apellidoMaterno, rut, dv, direccion, comuna, region, telefono, email) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)");
+                
+                String texto = cajaTextoNombre.getText();
+                ps.setString(1, cajaTextoNombre.getText());
+                ps.setString(2, cajaTextoApellidoPaterno.getText());
+                ps.setString(3, cajaTextoApellidoMaterno.getText());
+                ps.setString(4, cajaTextoRut.getText());
+                ps.setString(5, cajaTextoDv.getText());
+                ps.setString(6, cajaTextoDireccion.getText());
+                ps.setString(7, (String)comboComuna.getSelectedItem());
+                ps.setString(8, (String)comboRegion.getSelectedItem());
+                ps.setString(9, cajaTextoTelefono.getText());
+                ps.setString(10, cajaTextoEmail.getText());
+                ps.executeUpdate();
+                
+                String aceptar = "¡Datos guardados exitosamente!";
+                etiqueta.setText(aceptar);
+                JOptionPane.showMessageDialog(null, aceptar);
+            } catch (SQLException ex) {
+                Logger.getLogger(RegistroClientes.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
     }
 }

@@ -13,13 +13,17 @@ import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import static javax.swing.JFrame.EXIT_ON_CLOSE;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
+import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 import milmaestros.modelo.ConexionBD;
 
@@ -42,7 +46,7 @@ public class RegistroClientes extends JFrame implements ActionListener
     private JTextField cajaTextoTelefono = new JTextField();
     private JTextField cajaTextoEmail = new JTextField();
     private JTextField cajaTextoUsername = new JTextField();
-    private JTextField cajaTextoPassword = new JTextField(); 
+    private JPasswordField cajaTextoPassword = new JPasswordField(); 
     
     private JButton aceptar = new JButton("Aceptar");
     private JLabel etiqueta = new JLabel();
@@ -190,7 +194,7 @@ public class RegistroClientes extends JFrame implements ActionListener
         
         cajaTextoPassword.setBounds(150, 490, 200, 30);
         cajaTextoPassword.setActionCommand("cajaTextoPassword");
-        cajaTextoPassword.setName("cajaTextoPassword");
+        cajaTextoPassword.setName("password: " + String.valueOf(password));
         cp.add(cajaTextoPassword);
         
         aceptar.setBounds(220, 550, 130, 30);
@@ -721,13 +725,28 @@ public class RegistroClientes extends JFrame implements ActionListener
         
         if(comando.equals("Aceptar"))
         {
-            PreparedStatement ps = conn.ejecutarConsulta("INSERT INTO cliente(nombre, apellidoPaterno, apellidoMaterno, rut, direccion, comuna, region, telefono, email) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)");
-                    
-            ps.setString(1,cajaTextoNombre.getText());
-            String texto = cajaTextoNombre.getText();
-            String aceptar = "¡Datos guardados exitosamente!";
-            etiqueta.setText(aceptar);
-            JOptionPane.showMessageDialog(null, aceptar);
+            try {
+                PreparedStatement ps = conn.prepareStatement("INSERT INTO cliente(nombre, apellidoPaterno, apellidoMaterno, rut, dv, direccion, comuna, region, telefono, email) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)");
+                
+                String texto = cajaTextoNombre.getText();
+                ps.setString(1, cajaTextoNombre.getText());
+                ps.setString(2, cajaTextoApellidoPaterno.getText());
+                ps.setString(3, cajaTextoApellidoMaterno.getText());
+                ps.setString(4, cajaTextoRut.getText());
+                ps.setString(5, cajaTextoDv.getText());
+                ps.setString(6, cajaTextoDireccion.getText());
+                ps.setString(7, (String)comboComuna.getSelectedItem());
+                ps.setString(8, (String)comboRegion.getSelectedItem());
+                ps.setString(9, cajaTextoTelefono.getText());
+                ps.setString(10, cajaTextoEmail.getText());
+                ps.executeUpdate();
+                
+                String aceptar = "¡Datos guardados exitosamente!";
+                etiqueta.setText(aceptar);
+                JOptionPane.showMessageDialog(null, aceptar);
+            } catch (SQLException ex) {
+                Logger.getLogger(RegistroClientes.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
     }
 }
