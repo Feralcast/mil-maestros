@@ -726,9 +726,8 @@ public class RegistroClientes extends JFrame implements ActionListener
         if(comando.equals("Aceptar"))
         {
             try {
-                PreparedStatement ps = conn.prepareStatement("INSERT INTO cliente(nombre, apellidoPaterno, apellidoMaterno, rut, dv, direccion, comuna, region, telefono, email) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)");
-                
-                String texto = cajaTextoNombre.getText();
+                PreparedStatement ps = conn.prepareStatement("INSERT INTO cliente(nombre, apellidoPaterno, apellidoMaterno, rut, dv, direccion, comuna, region, telefono, email)"+ "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)");
+
                 ps.setString(1, cajaTextoNombre.getText());
                 ps.setString(2, cajaTextoApellidoPaterno.getText());
                 ps.setString(3, cajaTextoApellidoMaterno.getText());

@@ -18,7 +18,7 @@ public class ConexionBD
     private static final Logger LOG = Logger.getLogger(ConexionBD.class.getName());
     
     static final String JDBC_DRIVER = "com.mysql.cj.jdbc.Driver";  
-    static final String DB_URL = "jdbc:mysql://localhost/mil_maestros?useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=America/Santiago?useServerPrepStmts=true";
+    static final String DB_URL = "jdbc:mysql://localhost/mil_maestros?useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=America/Santiago";
 
     static final String USERNAME = "root";
     static final String PASSWORD = "";
