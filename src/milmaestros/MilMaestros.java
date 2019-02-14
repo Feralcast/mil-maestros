@@ -18,10 +18,10 @@ public class MilMaestros
     {
         
         RegistroClientes rc = new RegistroClientes();
-        rc.setVisible(true);
+        rc.setVisible(false);
         
         RegistroMaestros rm = new RegistroMaestros();
-        rm.setVisible(false);
+        rm.setVisible(true);
         
         RegistroEleccion re = new RegistroEleccion();
         re.setVisible(false);

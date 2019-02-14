@@ -49,8 +49,4 @@ public class ConexionBD
     {
         return crearSentencia().executeQuery(sql);
     }
-
-    public PreparedStatement prepareStatement(String insert_into_clientenombre_apellidoPaterno) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
 }
