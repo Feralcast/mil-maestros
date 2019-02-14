@@ -738,6 +738,7 @@ public class RegistroClientes extends JFrame implements ActionListener
                 ps.setString(8, (String)comboRegion.getSelectedItem());
                 ps.setString(9, cajaTextoTelefono.getText());
                 ps.setString(10, cajaTextoEmail.getText());
+                
                 ps.executeUpdate();
                 
                 String aceptar = "¡Datos guardados exitosamente!";

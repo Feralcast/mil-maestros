@@ -21,10 +21,10 @@ public class MilMaestros
         rc.setVisible(false);
         
         RegistroMaestros rm = new RegistroMaestros();
-        rm.setVisible(true);
+        rm.setVisible(false);
         
         RegistroEleccion re = new RegistroEleccion();
-        re.setVisible(false);
+        re.setVisible(true);
         
         VentanaPrincipal vp = new VentanaPrincipal();
         vp.setVisible(false);
